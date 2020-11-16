@@ -20,6 +20,8 @@ if (NOT_SUBPROJECT)
     endif ()
 endif ()
 
+file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/include/*.h")
+
 add_library(arduino_mock STATIC
         src/Arduino.cc
         src/EEPROM.cc
@@ -32,11 +34,13 @@ add_library(arduino_mock STATIC
         src/SoftwareSerial.cc
         src/WiFi.cc
         src/serialHelper.cc
-        )
+        src/LiquidCrystal.cc
+        src/Print.cc
+        ${HEADER_LIST})
 target_include_directories(arduino_mock
         PRIVATE "include"
         PUBLIC "include/arduino-mock"
-        INTERFACE "include/arduino-mock"
+        INTERFACE "include"
         )
 target_link_libraries(arduino_mock
         gmock
